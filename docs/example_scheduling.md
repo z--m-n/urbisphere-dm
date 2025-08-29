@@ -1,12 +1,9 @@
 # Scheduling
 
-Some workflow executions are scheduled for periodic production. As the execution of each workflow is functionally identical, the automation can be set up with generalized methods, e.g., using `systemd`.
+Some workflow executions are scheduled for periodic workflow task in the production pipeline. As the execution of each workflow is functionally identical, the automation can be set up with more generalized methods. For scheduled execution of workflows, the project uses Jupyterlab (basic) and `systemd` (more advanced).
 
 ## Rationale
-
-For sscheduled execution of workflows, the project uses Jupyterlab (basic) and `systemd` (more advanced).
-
-Several production workflows are to be executed sequentially, independently of the outcome of the previous workflow. For example, the collection, concatenation, quality control and caching steps are typically needed every few minutes for near-real-time access to current data, but are also needed daily to build and update yearly files.
+Several production pipelines require sequential execution of workflows, independently of the outcome of the previous tasks. For example, processing steps for the collection, concatenation, quality control and diagnostics are typically needed every few minutes for near-real-time access based on latest actual data, but are also needed daily to build and update yearly archive files with increments of missing data.
 
 ## Timer units
 
