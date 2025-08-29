@@ -1,0 +1,14 @@
+[Unit]
+Description=Jupyerlab for '%u' in env '%i'
+Documentation=https://status.meteo.uni-freiburg.de/services/
+
+[Service]
+Type=simple
+Environment="PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/conda/miniconda3/bin/"
+WorkingDirectory=%h/jupyter/
+ExecStart=/usr/bin/bash -c '/opt/conda/miniconda3/bin/conda run -n %i python -m jupyterlab'
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target
