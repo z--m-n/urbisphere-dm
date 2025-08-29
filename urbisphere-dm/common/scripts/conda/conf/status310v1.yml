@@ -1,0 +1,108 @@
+### Conda (environment.yml)
+name: status310v1
+
+channels:
+ - conda-forge
+
+dependencies:
+ - python=3.10
+ - ipython
+ - ipykernel
+ ##### IDE
+ - jupyter
+ - jupyterlab
+ ##### Data Science:
+ - numpy
+ - xarray
+ - pandas
+ - scipy
+ ##### IO, files, formats, APIs:
+ - plotly
+ - plotly-orca
+ - python-kaleido
+ - ipyevents
+ - ipywidgets
+ - ipyleaflet
+ - datashader
+ - holoviews
+ - geoviews
+ - cartopy
+ - nodejs
+ - bokeh
+ - hvplot
+ - altair
+ - folium
+ - colorcet
+ - colorlover
+ - plotnine
+ - imageio
+ - scikit-image
+ - requests
+ - pycrypto
+ - panel
+ - toml
+ - jinja2
+ - schedule
+ - croniter
+ - sqlalchemy
+ - pymysql
+ - tabulate
+ - mergedeep
+
+ - cftime
+ - cfgrib
+ - udunits2
+ - nc-time-axis
+ - netCDF4
+ - h5netcdf
+ - zarr
+ #- nco
+ - cdo
+ - python-cdo
+ - xarray-einstats
+ - sparse
+ - mpich
+ - esmpy
+ - black
+ - jupyterlab_code_formatter
+ - isort
+ - nodejs
+ - memory_profiler
+ - diskcache
+ - flox
+ - bottleneck
+ - numbagg
+ - pint
+ - distributed
+ - dask
+ - dask-labextension
+ # (optional) for command line tool compatibility on Apple OSX.
+ - coreutils
+ # R (only selected packages, additional ones installed using R)
+ - r-base
+ - r-essentials
+ - r-ncdf4
+ - r-ncmeta
+ - r-rgeos
+ - r-rgdal
+ - r-terra
+ - r-lwgeom
+ - r-gstat
+ - r-stars
+ - r-sf
+ - r-raster
+ - r-units
+ - r-formatr
+ - r-devtools
+ ##### PIP
+ - pip
+ - pip:
+   - papermill
+   - aiocron
+   - ipynb
+   - pygrok
+   - datetime_glob
+   - jupyterlab-topbar
+   - jupyter-resource-usage
+   - jupyterlab-system-monitor
+

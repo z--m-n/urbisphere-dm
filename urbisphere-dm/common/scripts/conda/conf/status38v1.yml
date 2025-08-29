@@ -1,0 +1,85 @@
+### Conda (environment.yml)
+name: status38v1
+
+channels:
+ - conda-forge
+ - defaults
+
+dependencies:
+ - python=3.8
+ - ipython
+ - ipykernel
+ ##### IDE
+ - jupyter
+ - jupyterlab
+ ##### Data Science:
+ - numpy
+ - xarray
+ - pandas
+ ##### IO, files, formats, APIs:
+ - plotly
+ - plotly-orca
+ - ipyevents
+ - ipywidgets
+ - ipyleaflet
+ - datashader
+ - holoviews
+ - geoviews
+ - cartopy
+ - nodejs
+ - bokeh
+ - hvplot
+ - altair
+ - folium
+ - colorcet
+ - colorlover
+ - requests
+ - pycrypto
+ - panel
+ - jinja2
+ - schedule
+ - croniter
+ - sqlalchemy
+ - pymysql
+ - diskcache
+ - flox
+ - zarr
+ - tabulate
+ - dateparser
+ - datefinder
+ - geos
+ - pygeos
+ - proj
+ - gdal
+ - libgdal
+ - udunits2
+ - cf-python
+ - cf-plot
+ - mpich
+ - esmpy
+ # R (only selected packages, not installed using R)
+ - r-base
+ - r-essentials
+ - r-ncdf4
+ - r-ncmeta
+ - r-rgeos
+ - r-rgdal
+ - r-terra
+ - r-lwgeom
+ - r-gstat
+ - r-stars
+ - r-sf
+ - r-raster
+ - r-units
+ - r-formatr
+ - r-devtools
+ ##### PIP
+ - pip
+ - pip:
+   - kml2geojson
+   - papermill
+   - kaleido
+   - aiocron
+   - ipynb
+   - pygrok
+

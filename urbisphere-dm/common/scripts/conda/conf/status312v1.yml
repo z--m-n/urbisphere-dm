@@ -1,0 +1,170 @@
+### Conda (environment.yml)
+name: status312v1
+
+channels:
+ - conda-forge
+ 
+dependencies:
+ - python=3.12
+ - ipython
+ - ipykernel
+ ##### IDE
+ - jupyter
+ - jupyterlab
+ ##### Data Science:
+ - numpy
+ - xarray
+ - pandas
+ - scipy
+ ##### IO, files, formats, APIs:
+ - plotly
+ - plotly-orca
+ - python-kaleido
+ - ipyevents
+ - ipywidgets
+ - ipyleaflet
+ - datashader
+ - holoviews
+ - geoviews
+ - cartopy
+ - graphviz
+ - nodejs
+ - bokeh
+ - hvplot
+ - altair
+ - folium
+ - colorcet
+ - colorlover
+ - plotnine
+ - imageio
+ - scikit-image
+ - requests
+ - pycryptodome # Replacement for - pycrypto
+ - graph
+ - panel
+ - toml
+ - tomlkit
+ # - tomllib
+ - jinja2
+ - schedule
+ - croniter
+ - sqlalchemy
+ - pymysql
+ - tabulate
+ - mergedeep
+ - dateparser
+ - datefinder
+ - lxml 
+ - beautifulsoup4
+ - geos
+ # - pygeos; now in shapely
+ - proj
+ - gdal
+ - kml2geojson
+ - libgdal
+ - astral
+ - fiona
+ - humanize
+ #- cf-python
+ #- cf-plot
+ - cf_xarray
+ - cftime
+ - cfgrib
+ - cfunits
+ - udunits2
+ - nc-time-axis
+ - netCDF4
+ - h5netcdf
+ - h5py
+ - fsspec
+ - pooch
+ - numcodecs
+ - paramiko
+ - xpublish
+ - zarr=<3.0
+ - xarray-datatree
+ - pint-xarray
+ - xarray_leaflet
+ - xskillscore
+ - climpred
+ - xgboost
+ - xarray-datatree
+ # - nco: #  issue with tempest-remap, `conda repoquery whoneeds -c conda-forge tempest-remap`. Install the apt-get version of `nco`.
+ - cdo
+ - python-cdo 
+ # - pynio; moved to maintenance mode, https://www.pyngl.ucar.edu/Nio.shtml
+ - xarray-einstats 
+ - sparse
+ - mpich
+ - esmpy
+ - black 
+ # - jupyterlab_code_formatter
+ # - jupyter-scheduler
+ - jupytext
+ - ipytree
+ - isort
+ - nodejs 
+ - memory_profiler
+ - diskcache
+ - cachey
+ - cachetools
+ - py7zr
+ - flox
+ - bottleneck
+ - numbagg
+ - natsort
+ - pint
+ - distributed 
+ - dask
+ # - dask-labextension
+ - nest-asyncio
+ - aiocron
+ - scikit-learn
+ - fiona
+ - pyrosm
+ - shapely
+ - openpyxl
+ - xlsxwriter
+ - pytables
+ - psycopg
+ - webcolors
+ - papermill
+ # - nb_conda_kernels
+ - pytest
+ # - xclim 
+ # - bioconda::pyrle # from bioconda: mamba install -n status310v2 -c bioconda pyrle
+ # (optional) for command line tool compatibility on Apple OSX.
+ - coreutils
+ # R (only selected packages, additional ones installed using R)
+ - r-base
+ - r-essentials
+ - r-ncdf4
+ - r-ncmeta
+ - r-rgeos
+ # - r-rgdal
+ - r-lwgeom
+ - r-terra
+ - r-gstat
+ - r-stars
+ - r-sf
+ - r-raster
+ - r-units
+ - r-formatr
+ - r-devtools
+ - r-rcpproll
+ - r-collapse
+ - r-directlabels
+ - r-rfast
+ ##### PIP
+ - nest-asyncio
+ - dask-labextension
+ - pip
+ - pip:
+    - ipynb
+    - pygrok
+    - pyrle
+    - datetime_glob
+    - jupyterlab-code-formatter
+    #- jupyter-scheduler
+    - jupyter-resource-usage
+    #- jupyterlab-topbar
