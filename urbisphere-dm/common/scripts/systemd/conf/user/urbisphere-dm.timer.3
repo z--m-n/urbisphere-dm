@@ -1,0 +1,9 @@
+[Unit]
+Description=urbisphere-dm (`%j`) `%p` `%i` (%u) - real-time
+
+[Timer]
+OnCalendar=*:6/10
+Unit=%p@%i.service
+
+[Install]
+WantedBy=default.target

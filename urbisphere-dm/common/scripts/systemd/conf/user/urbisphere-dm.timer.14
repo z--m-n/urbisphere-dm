@@ -1,0 +1,11 @@
+[Unit]
+Description=urbisphere-dm (`%j`) `%p` `%i` (%u) - daily
+
+[Timer]
+OnCalendar=05:17:00
+AccuracySec=2h
+RandomizedDelaySec=1h
+Unit=%p@%i.service
+
+[Install]
+WantedBy=default.target

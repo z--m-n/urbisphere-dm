@@ -1,0 +1,11 @@
+[Unit]
+Description=urbisphere-dm (`%j`) `%p` `%i` (%u)
+Documentation=https://status.meteo.uni-freiburg.de/services/
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --user restart interfaces-datasets-api-1-D@datasets-api-1-D-FR:AWS.service
+ExecStart=/usr/bin/systemctl --user restart interfaces-datasets-api-1-D@datasets-api-1-D-BR:AWS.service
+
+[Install]
+WantedBy=default.target

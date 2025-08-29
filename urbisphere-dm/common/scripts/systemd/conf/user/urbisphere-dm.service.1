@@ -1,0 +1,17 @@
+[Unit]
+Description=urbisphere-dm (`%j`) `%p` `%i` (%u)
+Documentation=https://status.meteo.uni-freiburg.de/services/
+
+[Service]
+Type=simple
+Environment="PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/conda/miniconda3/bin"
+Environment="EXEC_INSTANCE=%I"
+Environment="EXEC_TEMPLATE=%P"
+Environment="EXEC_SUFFIX=%J"
+WorkingDirectory=%h/jupyter/urbisphere-dm/processing/systems/ALC/
+ExecStart=/usr/bin/bash -c 'IFS="/" read -a EXEC_OPTS <<< "${EXEC_TEMPLATE}"; IFS="/" read -a EXEC_ARGS <<< "${EXEC_INSTANCE}"; EXEC_F1=$$([ "$${EXEC_SUFFIX}" = "H" ] && echo "hour" || echo "day");EXEC_F2=$$([ "$${EXEC_SUFFIX}" = "H" ] && echo "%%F %%H:00:00" || echo "%%F 00:00:00");EXEC_F3=$$([ "$${EXEC_SUFFIX}" = "H" ] && echo "latest" || echo "%%F 00:00:00"); echo "Options: "$${EXEC_F1}" "$${EXEC_F2}" "$${EXEC_F3}""; cd "%h/jupyter/urbisphere-dm/$${EXEC_OPTS[0]}/$${EXEC_OPTS[1]}/$${EXEC_OPTS[-3]}/" && /opt/conda/miniconda3/bin/conda run -n status310v1 %h/jupyter/urbisphere-dm/$${EXEC_OPTS[0]}/$${EXEC_OPTS[1]}/$${EXEC_OPTS[-3]}/notebooks/$${EXEC_ARGS[0]}_$${EXEC_ARGS[1]:metadata}.sh "$${EXEC_ARGS[-3]}" "$${EXEC_ARGS[-2]}" "$${EXEC_ARGS[-1]}" "$$(date -u -d "-$${EXEC_OPTS[-2]} $${EXEC_F1}" +"$${EXEC_F2}")" "$$(date -u -d "0 $${EXEC_F1}" +"$${EXEC_F3}")";'
+TimeoutStartSec=44min 45s
+TimeoutSec=585
+
+[Install]
+WantedBy=default.target
