@@ -116,9 +116,9 @@ In our example above, API calls to<br>
 `/public/bristol/api/v1/datasets/station_id=BR/mapbox/-/isel/1D/-1/location=BR&variable=ta&period=24H&method=maximum`<br>
 involve options for selection (and slicing) of data:
 
-- Dataset options: `datasets/station_id=BR`; all locations starting with BR (The Bristol Campaign). Options are added as URL query string.
-- Plugin input options: `mapbox/-/isel/1D/-1/`; passed to GeoJSON plugin, to access all variables, chunks of one day periods, counting backwards from the last chunk.
-- Plugin output options: `location=BR&variable=ta&period=24H&method=maximum`; the output map selecton, here the maximum air temperature in Bristol during the past 24 hours. Options are added as URL query string.
+- Dataset options: `datasets/station_id=BR`; all locations starting with BR (The Bristol Campaign). Additonal options are appended using URL query string formatting.
+- Plugin input options: `mapbox/-/isel/1D/-1/`; to access all variables, chunks of one day periods, counting backwards from the last chunk. These are passed to GeoJSON plugin.
+- Plugin output options: `location=BR&variable=ta&period=24H&method=maximum`; the output map selecton, here the maximum air temperature in Bristol during the past 24 hours. Options are formatted as URL query string.
 
 
 ## Caching
