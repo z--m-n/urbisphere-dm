@@ -51,6 +51,8 @@ output.path = '/public/bristol/api/v1/'
 
 ## Catalogue
 
+The link between input and output is established by registering an output profile with the `catalogue.id` of an input file. One input file can be linked to multiple output profiles.
+
 Example catalogue configuration section, for the API exposing the Bristol AWS data:
 ```toml
 [...]
@@ -92,7 +94,7 @@ catalogue.production_name = "urbisphere"
 catalogue.subset.data_vars = ['ta','hur','pr_rate','pwvsd', 'tdps'] # pr_amount
 ```
 
-Two catalogue items are exposed for the same user (`api_token`), requiring a combination of `api_name`, `api_token` and `dataset` identifier added to the URL to query the linked sources.
+In the example: Two catalogue items are exposed for the same user (`api_token`), requiring a combination of `api_name`, `api_token` and `dataset` identifier added to dataset query.
 
 
 ## Plugins
