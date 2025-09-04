@@ -11,11 +11,11 @@ A data API that builds on `xpublish`, with features added to manage input and ou
 
 ## Rationale
 
-Users in a variety of roles need to monitor and reuse data alongside as much of the associated metadata as possible. The customized API provides direct access to production sources, eliminating the need for duplication or modification of the production workflow while ensuring data provenance.
+Users in a variety of roles need to monitor and reuse data alongside as much of the associated metadata as possible.  The customised API provides direct access to the production sources, ensuring data provenance while avoiding duplication, modification or redirection of the production workflow.
 
 ## Configuration
 
-By default, all locations found in the default source are exposed as datasets, and named using location shortcode identifiers (`staion_id`; CCLLLL). Location identifiers are used as a primary index in production files, either as paths in Zarr containers or as groups in NetCDF files. Currently, there is no merged dataset exposed as joining multiple datasets on the fly is too demanding in case coordinates differ between the datasets. Access is managed using combinations of the 'api_name' and 'api_token', but more to provide custom context for different users than for security purposes. Filters are implemented using lists for inclusion, for example, to expose only preselected variables (e.g. 'ta', 'hur', etc.).
+By default, all locations found in the default source are exposed as datasets, and named using location shortcode identifiers (`station_id`; {2-char city id}{4-char station id}). Location identifiers are used as a primary index in production files, either as paths in Zarr containers or as groups in NetCDF files. Currently, there is no merged dataset exposed as joining multiple datasets on the fly is too demanding in case coordinates differ between the datasets. User access is managed using combinations of the 'api_name' and 'api_token', more to provide custom context for different users than for security purposes. Filters are implemented using lists for inclusion, for example, to expose only preselected variables (e.g. 'ta', 'hur', etc.).
 
 Example configuration, added during automation:
 ```toml
@@ -112,12 +112,13 @@ API query to the Mapbox plugin generates a GeoJSON query and embeds the results 
 
 ## Selection
 
-In our example above, API calls to
-`public/bristol/api/v1/datasets/station_id=BR/mapbox/-/isel/1D/-1/location=BR&variable=ta&period=24H&method=maximum` involve options for selection (and slicing) of data:
+In our example above, API calls to<br>
+`/public/bristol/api/v1/datasets/station_id=BR/mapbox/-/isel/1D/-1/location=BR&variable=ta&period=24H&method=maximum`<br>
+involve options for selection (and slicing) of data:
 
-- Dataset options: `datasets/station_id=BR`; all locations starting with BR (The Bristol Campaign)
-- Plugin input options: `mapbox/-/isel/1D/-1/`; passed to GeoJSON plugin, to access all variables, one day interval, counting backwards from the last record.
-- Plugin output options: `location=BR&variable=ta&period=24H&method=maximum`; the selected output map, i.e., the maximum air temperature in Bristol during the past 24 hours.
+- Dataset options: `datasets/station_id=BR`; all locations starting with BR (The Bristol Campaign). Options are added as URL query string.
+- Plugin input options: `mapbox/-/isel/1D/-1/`; passed to GeoJSON plugin, to access all variables, chunks of one day periods, counting backwards from the last chunk.
+- Plugin output options: `location=BR&variable=ta&period=24H&method=maximum`; the output map selecton, here the maximum air temperature in Bristol during the past 24 hours. Options are added as URL query string.
 
 
 ## Caching
