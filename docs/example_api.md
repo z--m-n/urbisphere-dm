@@ -94,7 +94,7 @@ catalogue.production_name = "urbisphere"
 catalogue.subset.data_vars = ['ta','hur','pr_rate','pwvsd', 'tdps'] # pr_amount
 ```
 
-In the example: Two catalogue items are exposed for the same user (`api_token`), requiring a combination of `api_name`, `api_token` and `dataset` identifier added to dataset query.
+In the example: Two catalogue items are exposed for the user (`api_token`), accessible by matching `api_name`, `api_token`, `system_group`, `production_level` and `production_name` values in the dataset query.
 
 
 ## Plugins
