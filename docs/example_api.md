@@ -127,5 +127,5 @@ involve options for selection (and slicing) of data:
 
 To allow the source files to change while the API is loaded:
 
-- The sources are converted to Zarr in a filesystem cache location that is frequently updated by a separate process and entirely removed on exit. Zarr handles the concurrent access better than NetCDF. The sources are too large for in-memory storage.
+- The sources are converted to Zarr in a filesystem cache location that is frequently updated by a separate process and entirely removed on exit. This is done because Zarr handles the concurrent access better than NetCDF and the sources are too large for in-memory storage.
 - The default in-memory caching implementation in `xpublish` is deactivated. This is partly replaced with a time-of-life caching method for the most frequent API queries. Without caching, some queries would be expensive and slow. The MapBox plugin is an example of this: a MapBox query triggers a GeoJSON query, which requires the collection of information from all paths, groups, variables and attributes in the sources. This information is then sliced for the computation of relevant statistics in memory, before being converted into GeoJSON. The results are then concatenated before the map visualisation is finally generated in HTML and JavaScript.
