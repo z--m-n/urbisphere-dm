@@ -6,12 +6,12 @@ A data API that builds on `xpublish`, with features added to manage input and ou
 
 - [x] Catalogues: basic user-access and context management.
 - [x] Plugins: extended to handle `json`, `geojson` and `mapbox` output.
-- [x] Selection: slicing along dimensions and subsets of variables.
+- [x] Selection: slicing along the time dimension and selection of variables.
 - [x] Caching: extended to read and cache periodically updating sources and repeated queries.
 
 ## Rationale
 
-Users in a variety of roles need to monitor and reuse data alongside as much of the associated metadata as possible.  The customised API provides direct access to the production sources, ensuring data provenance while avoiding duplication, modification or redirection of the production workflow.
+Users in a variety of roles need to monitor and reuse data alongside as much of the associated metadata as possible. The customised API provides direct access to the production sources, ensuring data provenance while avoiding duplication, modification or redirection of the production workflow.
 
 ## Configuration
 
@@ -94,38 +94,50 @@ catalogue.production_name = "urbisphere"
 catalogue.subset.data_vars = ['ta','hur','pr_rate','pwvsd', 'tdps'] # pr_amount
 ```
 
-In the example: Two catalogue items are exposed for the user (`api_token`), accessible by matching `api_name`, `api_token`, `system_group`, `production_level` and `production_name` values in the dataset query.
+In the example: Two catalogue items are exposed, accessible by matching `api_name`, `api_token`, `system_group`, `production_level` and `production_name` values in the dataset query. By default (defined in `query.system_index`), the latest data are returned.
 
 
 ## Plugins
 
+By default `xpublish` provides Zarr output. Alternative outputs  are provided for diagnostics and transfer of data.
+
 ### JSON
 
-The plugin acts as a wrapper for the built-in export features of xarray. Most JSON encoders and decoders do not handle large objects very well (50–100 MB; limits vary). The API query is validated and results are returned for short periods of time only; by default, one day.
+The plugin acts as a wrapper for the built-in export features of xarray. Most JSON encoders and decoders do not handle large objects very well (50–100 MB; limits vary). The API query is validated and results are returned for short periods of time only; by default, maximum one day.
 
 ### GeoJSON
 
-The hierarchical structure of the xarray dataset is converted into a flat key-value name space. In principle, this name space can be converted back into the original dataset's hierarchy. By default, the output contains aggregated statistics (mean, min, max) for different intervals (one hour, one day) for all variables in the dataset or datasets.
+The hierarchical structure of the xarray dataset is converted into a flat key-value name space, while attempting to maintain reference to `attrs`, `coords`, `data_vars`. In principle, this name space can be converted back into the original dataset's hierarchy. By default, the output contains aggregated statistics (mean, minimum, maximum) for different intervals (one hour, one day) for all variables in the dataset or datasets.
+
+<p align="center">
+  <img src="data/images/Screenshot_api-geojson.png" height="350" title="Example GeoJSON">
+</p>
 
 ### MapBox
 
 API query to the Mapbox plugin generates a GeoJSON query and embeds the results in HTML, allowing data to be viewed as a map in a web browser. The colour styling is hard-coded, with look-up tables of predefined colour scales for the data overlay.
 
+<p align="center">
+  <img src="data/images/Screenshot_api-map.png" height="350" title="Example Map">
+  <img src="data/images/Screenshot_api-map-menu.png" height="350" alt="Example Map Menu">
+</p>
 
 ## Selection
 
-In our example above, API calls to<br>
+In our example above, API calls involve options for selection (and slicing) of data and formats:<br>
 `/public/bristol/api/v1/datasets/station_id=BR/mapbox/-/isel/1D/-1/location=BR&variable=ta&period=24H&method=maximum`<br>
-involve options for selection (and slicing) of data:
 
 - Dataset options: `datasets/station_id=BR`; all locations starting with BR (The Bristol Campaign). Additonal options are appended using URL query string formatting.
 - Plugin input options: `mapbox/-/isel/1D/-1/`; to access all variables, chunks of one day periods, counting backwards from the last chunk. These are passed to GeoJSON plugin.
 - Plugin output options: `location=BR&variable=ta&period=24H&method=maximum`; the output map selecton, here the maximum air temperature in Bristol during the past 24 hours. Options are formatted as URL query string.
 
+<p align="center">
+  <img src="data/images/Screenshot_api-docs-selection.png" height="350" title="Example Docs">
+</p>
 
 ## Caching
 
 To allow the source files to change while the API is loaded:
 
-- The sources are converted to Zarr in a filesystem cache location that is frequently updated by a separate process and entirely removed on exit. This is done because Zarr handles the concurrent access better than NetCDF and the sources are too large for in-memory storage.
-- The default in-memory caching implementation in `xpublish` is deactivated. This is partly replaced with a time-of-life caching method for the most frequent API queries. Without caching, some queries would be expensive and slow. The MapBox plugin is an example of this: a MapBox query triggers a GeoJSON query, which requires the collection of information from all paths, groups, variables and attributes in the sources. This information is then sliced for the computation of relevant statistics in memory, before being converted into GeoJSON. The results are then concatenated before the map visualisation is finally generated in HTML and JavaScript.
+- The sources are converted to Zarr in a filesystem cache location that is updated by a separate process in intervals and entirely removed on exit. This step is needed because Zarr handles concurrent access better than NetCDF and the sources are too large for in-memory storage.
+- The default in-memory caching implementation in `xpublish` is deactivated. This is partly replaced with a time-of-life caching method for the most frequent API queries. Without caching, some queries would be expensive and slow. The MapBox plugin is an example of this: the call to `mapbox` is on-demand. A MapBox query triggers a GeoJSON query, which requires the collection of information from all paths, groups, variables and attributes in a source. This information is then sliced for the computation of relevant statistics in memory, before being converted into GeoJSON. Finally, the results are concatenated before the map visualisation is generated in HTML and JavaScript.
