@@ -4,9 +4,11 @@ For production use, workflows are copied and configured using shell scripts. The
 
 ## Rationale
 
-In order to make the work more accessible, the project favoured the use of Jupyter Notebooks (R and Python), TOML configuration files, and databases in SQL, CSV or NetCDF format. Consequently, Jupyter Notebooks were used for development, documentation and production, with dependecies between workflows solved using the `ipynb` module. This "development-production" framework was implemented out of necessity, primarily to save time. This approach is not recommended, but rather serves to demonstrate the concept.
+In order to make the work more accessible, the project favoured the use of Jupyter Notebooks (R and Python), TOML configuration files, and databases in SQL, CSV or NetCDF format. Consequently, workflows contain production routines, evaluation routines and output. Dependencies between workflows were solved using the `ipynb` module. 
 
-Runtime copies were created to avoid confusion, since a version control system registers both code execution output and code changes in Jupyter Notebooks. The version control system (e.g. Git) was configured to ignore the production runtime copies of workflows, thus keeping the focus on changes made for code development. Notebook copies do not need to be deleted at runtime, as their output can be examined and used as a standalone notebook. Converting a notebook to a script (`src/`) is optional, but may be necessary if the Python code requires it (e.g. to start a new cluster with threading modules such as `dask`). In both cases, log files are created or appended for debugging purposes. Splitting large tasks into multiple iterations executed from shell scripts made production more resilient to unhandled exceptions in the Python code.
+Splitting large tasks into multiple iterations executed from shell scripts made production more resilient to unhandled exceptions in the Python code. Runtime copies of workflows were created. Those temporary copies are not deleted at runtime, so their output can be examined and used as a standalone notebook. Conversion of a notebook to a Python script (in `src/`) is only necessary if the code requires it, e.g., to start a new cluster with threading modules such as `dask`.  The version control system (e.g. Git) was configured to ignore the production runtime copies of workflows, to help keep the focus on changes made for development. 
+
+This 'development=production' framework was implemented due to constraints and out of necessity: although this approach is not recommended, it serves to demonstrate a notebook-based codebase in an academic context.
 
 ## Features
 
@@ -125,7 +127,6 @@ logging.filemode = 'a'
 # Added lines (toml_add) for location:
 query.city = 'FR'
 output.subset.global_location = 'de.freiburg'
-
 
 cache.path = 'by-source/smurobs/by-serialnr/Germany/Freiburg/{station_id}/{time_query}/'
 output.path = 'by-source/smurobs/by-location/Germany/Freiburg/{station_id}/{system_group}/{system_id}/'

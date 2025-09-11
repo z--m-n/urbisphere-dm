@@ -11,7 +11,7 @@ A data API that builds on `xpublish`, with features added to manage input and ou
 
 ## Rationale
 
-Users in a variety of roles need to monitor and reuse data alongside as much of the associated metadata as possible. The customised API provides direct access to the production sources, ensuring data provenance while avoiding duplication, modification or redirection of the production workflow.
+Users in a variety of roles need to monitor and access data alongside as much of the associated metadata as possible. The customised API provides direct access to the production sources, ensuring data provenance while avoiding duplication or redirection of the production workflow. Data managers and end-users access the same database.
 
 ## Configuration
 
@@ -96,6 +96,8 @@ catalogue.subset.data_vars = ['ta','hur','pr_rate','pwvsd', 'tdps'] # pr_amount
 
 In the example: Two catalogue items are exposed, accessible by matching `api_name`, `api_token`, `system_group`, `production_level` and `production_name` values in the dataset query. By default (defined in `query.system_index`), the latest data are returned.
 
+### On-demand production
+A dependency between datasets in the catalogue is a special case; the final output is modified when a compagnion quality control dataset is registered. Then, both datasets are read and quality flags are applied to mask bad data, and attributes are adjusted according to a lookup of `L2R` production profiles. 
 
 ## Plugins
 
@@ -107,7 +109,7 @@ The plugin acts as a wrapper for the built-in export features of xarray. Most JS
 
 ### GeoJSON
 
-The hierarchical structure of the xarray dataset is converted into a flat key-value name space, while attempting to maintain reference to `attrs`, `coords`, `data_vars`. In principle, this name space can be converted back into the original dataset's hierarchy. By default, the output contains aggregated statistics (mean, minimum, maximum) for different intervals (one hour, one day) for all variables in the dataset or datasets.
+The hierarchical structure of the xarray dataset is converted into a flat key-value name space, while attempting to maintain reference to `attrs`, `coords`, `data_vars`. In principle, this name space can be converted back into the original dataset's hierarchy. By default, the output contains a `FeatureCollection` with aggregated statistics (mean, minimum, maximum) for different intervals (one hour, one day) for all variables in the dataset or datasets.
 
 <p align="center">
   <img src="data/images/Screenshot_api-geojson.png" height="350" title="Example GeoJSON">
@@ -129,7 +131,7 @@ In our example above, API calls involve options for selection (and slicing) of d
 
 - Dataset options: `datasets/station_id=BR`; all locations starting with BR (The Bristol Campaign). Additonal options are appended using URL query string formatting.
 - Plugin input options: `mapbox/-/isel/1D/-1/`; to access all variables, chunks of one day periods, counting backwards from the last chunk. These are passed to GeoJSON plugin.
-- Plugin output options: `location=BR&variable=ta&period=24H&method=maximum`; the output map selecton, here the maximum air temperature in Bristol during the past 24 hours. Options are formatted as URL query string.
+- Plugin output options: `location=BR&variable=ta&period=24H&method=maximum`; the output map selection; here the maximum air temperature in Bristol during the past 24 hours. The options are formatted as URL query string.
 
 <p align="center">
   <img src="data/images/Screenshot_api-docs-selection.png" height="350" title="Example Docs">
@@ -139,5 +141,7 @@ In our example above, API calls involve options for selection (and slicing) of d
 
 To allow the source files to change while the API is loaded:
 
-- The sources are converted to Zarr in a filesystem cache location that is updated by a separate process in intervals and entirely removed on exit. This step is needed because Zarr handles concurrent access better than NetCDF and the sources are too large for in-memory storage.
-- The default in-memory caching implementation in `xpublish` is deactivated. This is partly replaced with a time-of-life caching method for the most frequent API queries. Without caching, some queries would be expensive and slow. The MapBox plugin is an example of this: the call to `mapbox` is on-demand. A MapBox query triggers a GeoJSON query, which requires the collection of information from all paths, groups, variables and attributes in a source. This information is then sliced for the computation of relevant statistics in memory, before being converted into GeoJSON. Finally, the results are concatenated before the map visualisation is generated in HTML and JavaScript.
+- The sources are converted to Zarr in a filesystem cache location that is updated by a separate process in regular intervals and entirely removed on exit. This step is needed because Zarr handles concurrent access better than NetCDF and the sources are too large for in-memory storage.
+- The default in-memory caching implementation in `xpublish` is deactivated. This is partly replaced with a time-of-life caching method, keeping the most frequent API queries. 
+
+Without caching, some queries would be more expensive and slow. The MapBox plugin examplifies such a cached call. First, a MapBox query triggers a GeoJSON query, which requires the collection of information from all paths, groups, variables and attributes in a source. Second, this information is sliced for the computation of relevant statistics in memory, before being converted and concatenated as GeoJSON. Finally, the results are input for the map visualisation and embeded in HTML and JavaScript.
