@@ -1,2 +1,1 @@
-# urbisphere-dm
-Data management related to project urbisphere 
+docs/README.md
