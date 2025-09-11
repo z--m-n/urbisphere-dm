@@ -1,0 +1,94 @@
+## ----------------------------------
+## DEFAULTS
+[[datasets_api]]
+version.id = 'v1.'
+
+# logging
+logging.path = "../logs/"
+logging.file = "datasets_api.log"
+logging.format = "[%(asctime)s] %(levelname)-8s %(message)s"
+logging.filemode = "a"
+
+# query (papermill command line, other)
+query.start = "2022-01-01"
+query.period = "8Y"
+query.latest = false
+query.cache = true
+query.tasks = ["cache","serve"]
+
+query.system_index = "secret"
+
+# output
+output.path_base = "/srv/meteo/sandbox/z--m-n/{system_group}/{version}/data/{production_level}/"
+output.path = "by-source/smurobs/by-location/Germany/Berlin/{station_id}/{system_group}/{sensor_id}/"
+
+# (output) cache
+cache.path_base = '/tmp/'
+cache.path = "./cache/"
+cache.file = "{production_name}_{production_group}({global_location},{system_group}_{sensor_id},{time_bounds})_version({version}).{extension}"
+
+# input
+input.path_base = "/srv/meteo/archive/urbisphere/data/L1/"
+input.path = ["by-source/smurobs/by-location/Germany/Freiburg/"]  # "by-[location,serialnr]/"
+
+# mapbox plugin
+output.api.mapbox.container= "map"
+output.api.mapbox.style = "mapbox://styles/christen/clxjemj7y00bp01qngu6gbd4t"
+output.api.mapbox.zoom= 11.5
+output.api.mapbox.customAttribution = 'Data: <a href="http://www.uni-freiburg.de/en/">University of Freiburg</a>, Funding: European Research Council (ERC) Grant: 855005'
+
+# html template
+output.api.template.input_file = 'conf/templates/mapbox_template1.html.jinja2'
+
+# api static assets
+output.api.assets.input_path = 'conf/assets/'
+
+
+
+# -------- Start of block
+[[datasets_api.gattrs]]
+history=[
+    "[{version_date}] @status-meteo(status310v1): `datasets_api.ipynb` {version_id} by Matthias z--m-n",
+    "[{version_date}] Published via REST API as JSON or Zarr",
+]
+
+[[datasets_api.qc.gattrs]]
+history=[
+    "[{version_date}] @status-meteo(status310v1): `datasets_api.ipynb` {version_id} by Matthias z--m-n",
+    "[{version_date}] Curation based on Quality Control (QC) tests",
+    "[{version_date}] Published via REST API as JSON or Zarr",    
+]
+
+
+# continuing adding to [[cslogger_metadata]], explicitly redefine version.
+[[datasets_api]]
+version.id = 'v1'
+
+
+[[datasets_api]]
+version.id = 'v1.0.3'
+
+# query
+query.cache = true
+
+input.subset.version = "v1.0.5"
+input.subset.system_group = "AWS"
+input.subset.global_location = "uk.bristol"
+input.subset.campaign_location = "BR"
+
+input.path_base = [
+ "/srv/meteo/scratch/z--m-n/{system_group}/{version}/data/L1/",
+ "/srv/meteo/sandbox/z--m-n/{system_group}/{version}/data/L1/"
+]
+input.path = [
+ "by-source/smurobs/by-location/UK/Bristol/{system_group}/"
+]
+
+# local runtime folders
+cache.path_base = '../tmp/'
+cache.path = "./cache/"
+
+# bristol app
+output.path_base = '127.0.0.1:55555'
+output.path = '/public/bristol/api/v1/'
+

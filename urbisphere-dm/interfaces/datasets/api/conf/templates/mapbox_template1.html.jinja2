@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <style>
+    body,
+    html {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+          #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+          }
+
+         .marker {
+      background-color: forestgreen;
+      width: 40px;
+      height: 20px;
+      border-radius: 8px;
+      border-style: solid;
+      border-width: 2px;
+      border-color: #FFFFFF;
+      text-align: center;
+      color: #FFFFFF;
+      cursor: pointer;
+    }
+
+         .markerInactive {
+      background-color: grey;
+      width: 40px;
+      height: 20px;
+      border-radius: 8px;
+      border-style: solid;
+      border-width: 2px;
+      border-color: #FFFFFF;
+      text-align: center;
+      color: #FFFFFF;
+      cursor: pointer;
+    }
+
+         .markerProblem {
+      background-color: tomato;
+      width: 40px;
+      height: 20px;
+      border-radius: 8px;
+      border-style: solid;
+      border-width: 2px;
+      border-color: #FFFFFF;
+      text-align: center;
+      color: #FFFFFF;
+      cursor: pointer;
+    }
+
+    .mapboxgl-popup {
+      max-width: 150px;
+      opacity: 0.8;
+    }
+
+    .mapboxgl-popup-content {
+      text-align: center;
+      font-family: 'Open Sans', sans-serif;
+      border-width: 2px;
+      border-color: #FFFFFF;
+      cellpadding" 0px;
+    }
+
+    #controls {
+        position: absolute;
+        z-index: 100;
+        background-color:#CCCCCC;
+        width: 380px;
+        /*height: 200px;*/
+        top:0px;
+        right:0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 10px;
+        margin: 0;
+    }
+
+    #controls #legend{
+        width:100%;
+        height: 25px;   
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        background-color:white;
+        border:2px solid black;
+        margin-bottom:2px;
+        overflow: auto;
+    }
+
+    #variableSelector #variables{
+        z-index: 100;
+        width: 100%;
+        margin-bottom:2px;
+        padding:0;
+        border-radius: 0px;
+        border:1px solid black;
+        padding:2px;
+    }    
+    </style>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>  
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+   
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="controls">
+     <div id="projectDescription">
+     {{ title }}
+     </div>
+        <div id="variableSelector">
+            {{ select_variables }}
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('variable').onchange = function() {
+        window.location.href = this.children[this.selectedIndex].getAttribute('href');
+    }
+    </script>  
+    <script>
+    
+    let geojson='';
+    
+    fetch(`{{ geojson_url }}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' + btoa('citizen' + ":" + 'global'),
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        geojson = data;
+       })
+    .then(() => {
+        // console.log(geojson);
+        
+        mapboxgl.accessToken = 'pk.eyJ1IjoiY2hyaXN0ZW4iLCJhIjoiY2lqeXlrYzQwMjk3bXYzbHpyeHp0aHJmMCJ9.J9RNfdnr0IP0l2CX7SQW8Q';
+
+        let mapbox_config = {{ mapbox_config }};
+
+        const map = new mapboxgl.Map(mapbox_config);
+
+        // add markers to map
+        for (const feature of geojson.features) {
+            // create a HTML element for each feature
+            const el = document.createElement('div');
+
+            var DisplayValue =  feature.properties["{{ select_variable }}"];
+
+            if (DisplayValue < -9998 || DisplayValue == null) {
+                DisplayValue = 'N/A'
+                el.className = 'markerInactive';
+                el.style.backgroundColor = 'gray';
+            } else { 
+                DisplayValue = DisplayValue.toFixed(1);
+                el.className = 'marker';
+                
+                var ColorScale = DisplayValue;
+
+                // colorscale: translation of a value to a scale level
+                {{ colorscale }}
+
+                // colormap: translation of a scale level to a display color
+                {{ colormap }}
+            }   
+            el.innerHTML = DisplayValue;
+
+            // make a marker for each feature and add to the map
+            // new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
+            new mapboxgl.Marker(el)
+            .setLngLat(feature.geometry.coordinates)
+            .setPopup(
+                new mapboxgl.Popup({ offset: 25 }) // add popups
+                .setHTML(
+                    `<h4>${feature.properties["coords.station_name"]} (${feature.properties["coords.station_id"]})</h4><small>{{ properties }}</small>`
+                )
+            )
+            .addTo(map);
+        }
+
+        
+    });     
+
+    </script>
+  </body>
+</html>
