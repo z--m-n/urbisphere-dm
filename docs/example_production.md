@@ -12,10 +12,8 @@ Sensor networks in environmental research require a data system to manage a mode
 - L2: Final annotation and attribution for public release
 
 ## Production workflows
-<p align="center">
-  <img src="https://gi.copernicus.org/articles/13/393/2024/gi-13-393-2024-f08.png" title="Production pipeline (Zeeman et al. 2024)">
-  <div style="font-size: small; font-style: italic">Figure: Example of production levels in a production workflow (<a href="https://gi.copernicus.org/articles/13/393/2024/">Zeeman et al., 2024</a>)</div>
-</p>
+<figure><img src="https://gi.copernicus.org/articles/13/393/2024/gi-13-393-2024-f08.png"><figcaption>Figure: Example of production levels in a production workflow (<a href="https://gi.copernicus.org/articles/13/393/2024/">Zeeman et al., 2024</a>)</figcaption></figure>
+
 
 ### Collection, Conversion & Combination
 

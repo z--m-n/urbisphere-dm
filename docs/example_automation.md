@@ -1,6 +1,9 @@
 # Scheduling
 
-Some workflow executions are scheduled for periodic workflow task in the production pipeline. As the execution of each workflow is functionally identical, the automation can be set up with more generalized methods. For scheduled execution of workflows, the project uses Jupyterlab (basic) and `systemd` (more advanced). The `systemd` system also allows automatic start and restart of user-level services, such as apps and APIs including Jupyterlab and data dashboards.
+Some workflow tasks are scheduled for periodic execution in the production pipeline. For scheduled execution of workflows, the project uses Jupyterlab (basic) or `systemd` (advanced). 
+
+`systemd`: The `systemd` system also allows automatic start and restart of user-level services, such as apps and APIs including Jupyterlab and data dashboards. As the execution of each workflow is functionally identical, the automation is set up with generalized methods.
+
 
 ## Rationale
 Several production pipelines require sequential execution of workflows, independently of the outcome of the previous tasks. For example, processing steps for the collection, concatenation, quality control and diagnostics are typically needed every few minutes for near-real-time access based on latest actual data, but are also needed daily to build and update yearly archive files with increments of missing data.
