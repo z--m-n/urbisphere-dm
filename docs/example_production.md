@@ -11,17 +11,17 @@ Sensor networks in environmental research require a data system to manage a mode
 - L1: Computations and conversion to a common vocabulary
 - L2: Final annotation and attribution for public release
 
+## Production workflows
 <p align="center">
   <img src="https://gi.copernicus.org/articles/13/393/2024/gi-13-393-2024-f08.png" title="Production pipeline (Zeeman et al. 2024)">
   <div style="font-size: small; font-style: italic">Figure: Example of production levels in a production workflow (<a href="https://gi.copernicus.org/articles/13/393/2024/">Zeeman et al., 2024</a>)</div>
-</p>[^1]
-
-## Production workflows
+</p>
 
 ### Collection, Conversion & Combination
 
 Field-deployed systems collect sensor data and transfer these as files to temporary central storage volumes. From there, file objects are archived on locations with human and machine interpretable identifiers for the logical, physical and organisation network those data belong to. The information in the file name (creation time, serial number) and within the file objects (time records, configuration details) link to databases for inventory and deployment details. The sources are converted and combined into a standardised structure (L0, L1), which subsequent workflows can access.
 
+- documentation in `docs/`[example_workflow](../docs/example_workflow.md)
 - documentation in `docs/`[example_runtime](../docs/example_runtime.md)
 - documentation in `docs/`[example_scheduling](../docs/example_scheduling.md)
 - workflows in `urbisphere-dm/processing/systems/`
@@ -33,6 +33,7 @@ Visualisations are part of the monitoring of data infrastructure, data transmiss
 
 Annotations are made based on maintenance reports. The annotation process is supported by automated quality control workflows, which comprise computations and visualisation. 
 
+- documentation in `docs/`[example_workflow](../docs/example_workflow.md)
 - workflows in `urbisphere-dm/interfaces/services/dashboards/`
 
 ### Sharing & Publication
@@ -43,7 +44,11 @@ Provenance and reuse of the data require access to structured metadata about the
 - workflows in `urbisphere-dm/interfaces/datasets/api/`
 - workflows in `urbisphere-dm/interfaces/datasets/zenodo/`
 
-
 ## References
+<p align="left">
+  <div style="font-size: small; font-style: normal">M. Zeeman, A. Christen, S. Grimmond, D. Fenner, W. Morrison, G. Feigel, M. Sulzer, and N. Chrysoulakis. “Modular
+approach to near-time data management for multi-city atmospheric environmental observation campaigns”. In:
+Geoscientific Instrumentation, Methods and Data Systems 13.2 (Dec. 2024), pp. 393–424. DOI: 10.5194/gi-13-393-
+2024.</div>
+</p>
 
-[^1]: Zeeman
