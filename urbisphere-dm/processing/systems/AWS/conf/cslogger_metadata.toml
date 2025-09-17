@@ -1,0 +1,249 @@
+## ----------------------------------
+## DEFAULTS
+[[cslogger_metadata]]
+version.id = 'v1.'
+
+# logging
+logging.path = "./logs/"
+logging.file = "cslogger_stats.log"
+logging.format = "[%(asctime)s] %(levelname)-8s %(message)s"
+
+# query (papermill command line, other)
+query.start = "2022-01-01"
+query.period = "1M"
+query.system_index = 1
+query.latest = false
+query.cache = false
+query.tasks = ['MET_1min','RAW_1min','SYS_1hr']
+
+# metadb (offline)
+metadb.system_id = []
+
+# input
+input.path_base = "/srv/meteo/archive/urbisphere/data/RAW/"
+input.path = ["by-source/smurobs/by-location/Germany/Berlin/","by-source/smurobs/by-serialnr/France/Paris/"]  # "by-[location,serialnr]/"
+
+# -------- Start of block
+# Berlin CR1000X
+[[cslogger_metadata.input.file]]
+type = "MET_1min"
+path = "{station_id}/{system_name}_{system_id}/{time_year}/{time_doy}/"
+file = "MET_1min_{system_id}_????-??-??.csv"
+[[cslogger_metadata.input.file]]
+type = "RAW_1min"
+path = "{station_id}/{system_name}_{system_id}/{time_year}/{time_doy}/"
+file = "RAW_1min_{system_id}_????-??-??.csv"
+[[cslogger_metadata.input.file]]
+type = "SYS_1hr"
+path = "{station_id}/{system_name}_{system_id}/{time_year}/{time_doy}/"
+file = "SYS_1hr_{system_id}_????-??-??.csv"
+
+# Berlin CR1000X Mobile
+[[cslogger_metadata.input.file]]
+type = "MET_1sec"
+path = "mobile/{system_name}_{system_id}/{time_year}/{time_doy}/"
+file = "BEVAN_MET_1sec.dat"
+[[cslogger_metadata.input.file]]
+type = "RAW_1sec"
+path = "mobile/{system_name}_{system_id}/{time_year}/{time_doy}/"
+file = "BEVAN_RAW_1sec.dat"
+[[cslogger_metadata.input.file]]
+type = "SYS_1sec"
+path = "mobile/{system_name}_{system_id}/{time_year}/{time_doy}/"
+file = "BEVAN_SYS_1sec.dat"
+
+# Berlin CR3000X and ClimaVUE
+[[cslogger_metadata.input.file]]
+type = "MET_1min"
+path = "{station_id}/{sensor_id}/{time_year}/{time_doy}/"
+file = "MET_1min_{system_id}_????-??-??.csv"
+[[cslogger_metadata.input.file]]
+type = "RAW_1min"
+path = "{station_id}/{sensor_id}/{time_year}/{time_doy}/"
+file = "RAW_1min_{system_id}_????-??-??.csv"
+[[cslogger_metadata.input.file]]
+type = "SYS_1hr"
+path = "{station_id}/{sensor_id}/{time_year}/{time_doy}/"
+file = "SYS_1hr_{system_id}_????-??-??.csv"
+
+# Berlin CR1000X w. EasyFlux
+[[cslogger_metadata.input.file]]
+type = "Time_Series"
+path = "{station_id}/{system_id}/{time_year}/{time_doy}/"
+file = "Time_Series_{system_id}_????-??-??.csv"
+[[cslogger_metadata.input.file]]
+type = "Flux_CSFormat"
+path = "{station_id}/{system_id}/{time_year}/{time_doy}/"
+file = "Flux_CSFormat_{system_id}_????-??-??.csv"
+[[cslogger_metadata.input.file]]
+type = "FLUX_Notes"
+path = "{station_id}/{system_id}/{time_year}/{time_doy}/"
+file = "FLUX_Notes_1hr_{system_id}_????-??-??.csv"
+
+# Paris CR1000X, 
+[[cslogger_metadata.input.file]]
+type = "MET_1min"
+path = "{system_name}/{system_id}/"
+file = "MET_1min_{system_id}_????-??-??.csv"
+[[cslogger_metadata.input.file]]
+type = "RAW_1min"
+path = "{system_name}/{system_id}/"
+file = "RAW_1min_{system_id}_????-??-??.csv"
+[[cslogger_metadata.input.file]]
+type = "SYS_1hr"
+path = "{system_name}/{system_id}/"
+file = "SYS_1hr_{system_id}_????-??-??.csv"
+[[cslogger_metadata.input.file]]
+type = "SYS_1hr"
+path = "{station_id}/{sensor_id}/{time_year}/{time_doy}/"
+file = "SYS_5min_{system_id}_????-??-??.csv"
+
+# Paris CR1000X, dupes
+[[cslogger_metadata.input.file]]
+type = "MET_1min"
+path = "{system_name}/{system_id}/dupes/by-upload-date/????-??-??/"
+file = "{system_id}_MET_1min_?.dat"
+[[cslogger_metadata.input.file]]
+type = "MET_1min"
+path = "{system_name}/{system_id}/dupes/by-upload-date/????-??-??/"
+file = "{system_id}_MET_1min_??.dat"
+[[cslogger_metadata.input.file]]
+type = "MET_1min"
+path = "{system_name}/{system_id}/dupes/by-upload-date/????-??-??/"
+file = "{system_id}_MET_1min_???.dat"
+[[cslogger_metadata.input.file]]
+type = "RAW_1min"
+path = "{system_name}/{system_id}/dupes/by-upload-date/????-??-??/"
+file = "{system_id}_RAW_1min_?.dat"
+[[cslogger_metadata.input.file]]
+type = "RAW_1min"
+path = "{system_name}/{system_id}/dupes/by-upload-date/????-??-??/"
+file = "{system_id}_RAW_1min_??.dat"
+[[cslogger_metadata.input.file]]
+type = "RAW_1min"
+path = "{system_name}/{system_id}/dupes/by-upload-date/????-??-??/"
+file = "{system_id}_RAW_1min_???.dat"
+[[cslogger_metadata.input.file]]
+type = "SYS_1hr"
+path = "{system_name}/{system_id}/dupes/by-upload-date/????-??-??/"
+file = "{system_id}_SYS_10min_?.dat"
+[[cslogger_metadata.input.file]]
+type = "SYS_1hr"
+path = "{system_name}/{system_id}/dupes/by-upload-date/????-??-??/"
+file = "{system_id}_SYS_10min_??.dat"
+[[cslogger_metadata.input.file]]
+type = "SYS_1hr"
+path = "{system_name}/{system_id}/dupes/by-upload-date/????-??-??/"
+file = "{system_id}_SYS_10min_???.dat"
+
+
+# -------- End of block
+
+# continuing adding to [[cslogger_metadata]], explicitly redefine version.
+[[cslogger_metadata]]
+version.id = 'v1'
+
+# input name pattern subset
+input.subset.delimiter_url = "."
+input.subset.delimiter = "_"
+input.subset.station_id = "*"
+input.subset.system_group = "AWS"
+input.subset.system_name = ["CR1000X"]
+input.subset.system_id = "*"
+input.subset.time_year = "20??"
+input.subset.time_doy = "???"
+input.subset.extension = "nc"
+
+# output
+output.cache.path = "/srv/meteo/sandbox/z--m-n/AWS/{version_id}/cache/"
+#output.path_base = "data/L0/"
+output.path_base = "/srv/meteo/sandbox/z--m-n/AWS/{version_id}/data/L0/"
+output.file = "urbisphere_set({global_location}{delimiter_url}{station_id},{system_group}{delimiter}{system_id},{time_bounds})_version({version_id}).{extension}"
+
+# -------- Start of block
+[[cslogger_metadata.gattrs]]
+title="Observational data from Automatic Weather Stations (AWS)."
+location="de.freiburg"
+author= [ 
+    "Andreas Christen" 
+]
+contributor= [
+    "Andreas Christen [Principal Investigator]",
+    "Matthias Zeeman [Data Manager]",
+]
+institution=[
+    "University of Freiburg",
+]
+license="All rights reserved."
+source= [
+    "Field recorded point measurements from sensors connected to Campbell Scientific data loggers.",
+]
+history=[
+    "[{version_date}] @some-server(status310v1): `cslogger_metadata.ipynb` v1.0.2 by Matthias Zeeman",
+]
+production_level="L0"
+production_info=[
+    "Transcription of text-based source data, assignment of attributes.",
+]
+references=""
+version="{version_id}"
+creation_time="{creation_time}"
+
+[[cslogger_metadata.gattrs]]
+station_id = ['PA....']
+title="Observational data from Automatic Weather Stations (AWS) in Paris, France."
+location="fr.paris"
+author= [ 
+    "Some Author" 
+]
+contributor= [
+    "Matthias Zeeman [Data Manager]",
+]
+institution=[
+    "University of Freiburg",
+]
+
+[[cslogger_metadata.gattrs]]
+station_id = ['BE....']
+title="Observational data from Automatic Weather Stations (AWS) in Berlin, Germany."
+location="de.berlin"
+author= [ 
+    "Some Author" 
+]
+contributor= [
+    "Matthias Zeeman [Data Manager]",
+]
+institution=[
+    "University of Freiburg",
+]
+
+# -------- End of block
+
+## ----------------------------------
+## v1.0.1  -- Addendum -- 
+[[cslogger_metadata]]
+version.id = 'v1.0.1'
+
+# query
+query.period = "1M"
+query.start = "2022-10-01"
+query.city = "PA"
+
+input.path = ["by-source/smurobs/by-serialnr/France/Paris/"]  # "by-[location,serialnr]/"
+input.subset.global_location = "fr.paris"
+output.path = "by-source/smurobs/by-location/France/Paris/{station_id}/{system_group}/{system_id}/"
+
+
+## ----------------------------------
+## v1.0.1  -- Addendum -- 
+[[cslogger_metadata]]
+version.id = 'v1.0.1'
+
+# query
+query.period = "1M"
+query.start = "2021-07-01"
+query.city = "BE"
+
+input.path = ["by-source/smurobs/by-location/Germany/Berlin/"]  # "by-[location,serialnr]/"
+input.subset.global_location = "de.berlin"
+output.path = "by-source/smurobs/by-location/Germany/Berlin/{station_id}/{system_group}/{system_id}/"

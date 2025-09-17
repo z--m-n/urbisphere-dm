@@ -1,0 +1,107 @@
+## ----------------------------------
+## DEFAULTS
+[[fieldclimate_metadata]]
+version.id = 'v1.'
+
+# logging
+logging.path = "logs/{version_id}/"
+logging.file = "fieldclimate_metadata.log"
+logging.format = "[%(asctime)s] %(levelname)-8s %(message)s"
+logging.filemode = 'a'
+
+# query (papermill command line, other)
+query.start = "2022-07-01" # first data: 2022-05-04
+query.period = "1D"
+query.system_index = ""
+query.latest = false
+query.cache = true
+query.tasks = ['query']
+query.key_file = "/etc/creds/other/.fieldclimate_keys.json"
+
+
+# metadb (offline)
+metadb.system_id = []
+
+[[fieldclimate_metadata]]
+version.id = 'v1.0'
+
+# input
+input.path_base = "https://api.fieldclimate.com/v2"
+
+# output cache
+cache.path_base = "/srv/meteo/sandbox/z--m-n/AWS/{version_id}/cache/{production_level}/"
+cache.path = "by-source/smurobs/by-location/Germany/Freiburg/{station_id}/dupes/by-upload-date/{time_query}/"
+cache.file = "fieldclimate_set({global_location},{system_group}{delimiter}{system_name},{time_bounds})_version({version_id}).{extension}"
+
+# output
+output.path_base = "/srv/meteo/sandbox/z--m-n/AWS/{version_id}/data/{production_level}/"
+output.path = "by-source/smurobs/by-location/Germany/Freiburg/{station_id}/{system_group}/{system_id}/"
+output.file = "urbisphere_set({global_location}{delimiter_url}{station_id},{system_group}{delimiter}{system_id},{time_bounds})_version({version_id}).{extension}"
+
+# output name pattern subset
+output.subset.global_location = "de.freiburg"
+output.subset.delimiter_url = "."
+output.subset.delimiter = "_"
+output.subset.station_id = "FieldclimateAPI"
+output.subset.system_group = "AWS"
+output.subset.system_name = "LoRAIN"
+output.subset.system_id = ""
+output.subset.sensor_name = "LoRAIN"
+output.subset.extension = "nc"
+
+# -------- Start of block
+[[fieldclimate_metadata.output.encoder]]
+name = 'time'
+units = 'nanoseconds since 1970-01-01 00:00:00'
+calendar = 'proleptic_gregorian'
+
+# -------- End of block
+
+# -------- Start of block
+[[fieldclimate_metadata.gattrs]]
+title="Observational data from Automatic Weather Stations (AWS) in Freiburg, Germany."
+location="de.freiburg"
+author= [ 
+    "Some Author",
+]
+contributor= [
+    "Matthias Zeeman [Data Manager]",
+]
+institution=[
+    "University of Freiburg",
+]
+license="All rights reserved."
+source= [
+    "Recorded observations were retrieved using the Fieldclimate API at 'https://api.fieldclimate.com/v2/docs'",
+    "Field observations were recorded by Pessl Instruments GmbH at 'https://ng.fieldclimate.com/'",
+    "Field observations were made using LoRAIN (NBIoT) model automatic weather stations (AWS).",
+]
+history=[
+    "[{version_date}] Fieldclimate API: `https://api.fieldclimate.com/v2/` by Pessl Instruments GmbH",
+    "[{version_date}] @some-server(status38v1): `fieldclimate_metadata.ipynb` v1.0.3 by Matthias Zeeman",
+]
+production_level="L0"
+production_info=[
+    "Transcription of text-based source data, assignment of attributes.",
+]
+references=[ "https://api.fieldclimate.com/v2/docs" ]
+version="{version_id}"
+creation_time="{creation_time}"
+
+# -------- End of block
+
+
+# -------- Start of block
+[[fieldclimate_metadata.gattrs]]
+history=[
+    "[{version_time}] Field observations were made using a LoRAIN (NBIoT) model (Pessl Instruments GmbH) automatic weather station (AWS)",
+    "[{version_time}] Data were collected by the FieldClimate system (Pessl Instruments GmbH)",    
+    "[{version_time}] @some-server(status310v1): `fieldclimate_metadata.ipynb` {version_id} by Matthias Zeeman",
+    "[{version_time}] Data were retrieved from the <a href=\"https://api.fieldclimate.com/v2/\">Fieldclimate API</a>",
+    "[{version_time}] Text-based data were decoded and transcribed, data attributes were assigned and some meta data were added"
+]
+production_level="L0"
+production_version="{version_id}"
+production_profile="set(de.freiburg,AWS,2025)"
+production_time="{creation_time}"
+# -------- End of block
