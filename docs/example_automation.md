@@ -1,12 +1,14 @@
 # Scheduling
 
-Some workflow tasks are scheduled for periodic execution in the production pipeline. For scheduled execution of workflows, the project uses Jupyterlab (basic) or `systemd` (advanced). 
+Some workflow tasks are scheduled for periodic execution in the production pipeline. For scheduled execution of workflows, the user options are Jupyterlab (basic, GUI) or `systemd` (advanced, CLI). 
 
-`systemd`: The `systemd` system also allows automatic start and restart of user-level services, such as apps and APIs including Jupyterlab and data dashboards. As the execution of each workflow is functionally identical, the automation is set up with generalized methods.
+`jupyterlab-scheduler`: execution of notebooks or code using a crontab syntax for the scheduling.  
+
+`systemd`: As the execution of each workflow is functionally identical, the automation is set up with generalized methods (see below). The `systemd` automation allows start and restart of any user-level service, such as user-developed apps and APIs. In the context of this project this includes Jupyterlab and diagnostics dashboards. The `systemd` appraoch is described below.
 
 
 ## Rationale
-Several production pipelines require sequential execution of workflows, independently of the outcome of the previous tasks. For example, processing steps for the collection, concatenation, quality control and diagnostics are typically needed every few minutes for near-real-time access based on latest actual data, but are also needed daily to build and update yearly archive files with increments of missing data.
+A number of production pipelines require sequential execution of workflows, independently of the outcome of the previous tasks. For example, processing steps for the collection, concatenation, quality control and diagnostics are typically needed every few minutes for near-real-time access based on latest actual data, but are also needed daily to build and update yearly archive files with increments of missing data.
 
 ## Timer units
 
@@ -78,7 +80,7 @@ systemctl --user   start processing-systems-AWS-1-H@fieldclimate-metadata-1-H-{F
 
 ## Schedule
 
-Example of multiple scheduled user units, active for AWS, DWL and ALC systems in multiple campaigns. Those services can be individually started, stopped and reviewed.
+Example of multiple scheduled user units, active for the productions of AWS, DWL and ALC systems in multiple campaigns. Timers and services can be individually started, stopped and reviewed.
 
 ```bash
 $ systemctl --user list-timers

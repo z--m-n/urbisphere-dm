@@ -7,8 +7,8 @@ ____
 
 
 ## Status
-**Gen 1 (current)**: compiled from selected private development workflows. 
-These workflows were built around Notebooks, TOML configurations and Bash scripts. Their combination can be used for production/automation, although not recommended. As notebooks, the workflows are self-contained with limited cross-dependencies.  
+**Gen 1 (current)**: compiled from selected private workflows. 
+These workflows were built around Notebooks, TOML configuration files and Bash scripts. The combination can be used for production/automation, although not recommended. As development notebooks, the workflows are self-contained with limited cross-dependencies.  
 
 **Gen 2 (next)**: code cleanup.
 Implement classes, modules, type hinting, docstrings, tests, more.
@@ -20,3 +20,11 @@ Implement classes, modules, type hinting, docstrings, tests, more.
 1. [Workflow Runtime](example_runtime.md)
 1. [Workflow Automation](example_automation.md)
 
+
+## References
+<p align="left">
+  <div style="font-size: small; font-style: normal">M. Zeeman, A. Christen, S. Grimmond, D. Fenner, W. Morrison, G. Feigel, M. Sulzer, and N. Chrysoulakis. “Modular
+approach to near-time data management for multi-city atmospheric environmental observation campaigns”. In:
+Geoscientific Instrumentation, Methods and Data Systems 13.2 (Dec. 2024), pp. 393–424. DOI: 10.5194/gi-13-393-
+2024.</div>
+</p>
