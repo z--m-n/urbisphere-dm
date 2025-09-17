@@ -1,0 +1,173 @@
+## ----------------------------------
+## DEFAULTS
+[[datasets_conjoin]]
+version.id = 'v1.'
+
+# logging
+logging.path = "../logs/{version_id}/"
+logging.file = "datasets_conjoin.log"
+logging.format = "[%(asctime)s] %(levelname)-8s %(message)s"
+logging.filemode = 'a'
+
+# query (papermill command line, other)
+query.start = "2022-01-01"
+query.period = "1Y"
+query.system_index = ""
+query.latest = false
+query.cache = true
+query.dask = true
+query.tasks = ["conform","concat","combine"] # ,"conflate"
+
+# metadb (offline)
+metadb.system_id = []
+
+# output
+output.path_base = "/srv/meteo/sandbox/z--m-n/{system_group}/{version}/data/{production_level}/"
+output.path = "by-source/smurobs/by-location/Germany/Berlin/{station_id}/{system_group}/{sensor_id}/"
+output.file = "{production_name}_{production_group}({global_location},{system_group},{time_bounds})_version({version}).{extension}"
+
+# (output) cache
+cache.path_base = "/srv/meteo/sandbox/z--m-n/{system_group}/{version}/cache/{production_level}/"
+cache.path = "by-source/smurobs/by-location/Germany/Berlin/{station_id}/{system_group}/{sensor_id}/"
+cache.file = "{production_name}_{production_group}({global_location},{system_group}_{sensor_id},{time_bounds})_version({version}).{extension}"
+
+# input
+input.path_base = "/srv/meteo/archive/urbisphere/data/L0/"
+input.path = ["by-source/smurobs/by-location/Germany/Berlin/"]  # "by-[location,serialnr]/"
+
+# -------- Start of block
+# Berlin
+[[datasets_conjoin.input.file]]
+type = "AWS"
+path = "{station_id}/AWS/{sensor_id}/"
+file = "urbisphere_*_version({version}).nc"
+
+# continuing adding to [[cslogger_metadata]], explicitly redefine version.
+[[datasets_conjoin]]
+version.id = 'v1'
+
+# input name pattern subset
+input.subset.delimiter_url = "."
+input.subset.delimiter = "_"
+input.subset.station_id = "??????"
+input.subset.system_group = "???*"
+input.subset.system_name = "*"
+input.subset.system_id = "*"
+input.subset.sensor_id = "*"
+input.subset.time_year = "20??"
+input.subset.time_doy = "???"
+input.subset.time_hour = "??"
+input.subset.time_date = "????????"
+input.subset.version = "v?.?.?"
+input.subset.extension = "nc"
+
+
+# -------- Start of block
+[[datasets_conjoin.gattrs]]
+history=[
+    "[{version_date}] investigator8@status-meteo(status310v1): `datasets_conjoin.ipynb` v1.0.0 by Matthias Zeeman",
+]
+production_level="L1"
+production_info=[
+    "Alignment of units and names with standard vocabulary and conventions",
+    "Elimination of non-essential attributes, coordinates and dimensions",
+]
+
+
+## ----------------------------------
+## v1.0.0  -- Addendum --
+[[datasets_conjoin]]
+version.id = 'v1.0.0'
+
+# query
+query.city = "FR"
+query.cache = true
+query.period = "1Y"
+query.start = "2022-01-01"
+query.system_index = ""
+
+input.subset.version = "v1.0.3"
+input.subset.system_name = ["LoRAIN (NBIoT)", "Raspberry PI Zero W"]
+input.subset.global_location = "de.freiburg"
+
+input.path = ["by-source/smurobs/by-location/Germany/Freiburg/"]  # "by-[location,serialnr]/"
+cache.path = "by-source/smurobs/by-location/Germany/Freiburg/{station_id}/{system_group}/{sensor_id}/"
+output.path = "by-source/smurobs/by-location/Germany/Freiburg/{station_id}/{system_group}/{sensor_id}/"
+
+
+
+## ----------------------------------
+## v1.0.0  -- Addendum --
+[[datasets_conjoin]]
+version.id = 'v1.0.1'
+# -------- Start of block
+[[datasets_conjoin.gattrs]]
+history=[
+    "[{version_date}] @status-meteo(status310v1): `datasets_conjoin.ipynb` {version_id} by Matthias Zeeman",
+    "[{version_date}] Elimination of non-essential attributes, coordinates and dimensions",
+    "[{version_date}] Alignment of units and names with standard vocabulary and conventions",
+]
+production_level="L1"
+
+
+
+## ----------------------------------
+## v1.0.1  -- Addendum --
+[[datasets_conjoin]]
+version.id = 'v1.0.1'
+
+# query
+query.city = "FR"
+query.cache = true
+query.period = "1Y"
+query.start = "2022-01-01"
+query.system_index = ""
+
+input.subset.version = "v1.0.4"
+input.subset.system_name = ["LoRAIN (NBIoT)", "Raspberry PI Zero W"]
+input.subset.global_location = "de.freiburg"
+
+input.path = ["by-source/smurobs/by-location/Germany/Freiburg/"]  # "by-[location,serialnr]/"
+cache.path = "by-source/smurobs/by-location/Germany/Freiburg/{station_id}/{system_group}/{sensor_id}/"
+output.path = "by-source/smurobs/by-location/Germany/Freiburg/{station_id}/{system_group}/{sensor_id}/"
+
+
+## ----------------------------------
+## v1.0.2  -- Addendum --
+[[datasets_conjoin]]
+version.id = 'v1.0.2'
+
+# query
+query.city = "FR"
+query.cache = true
+query.period = "1Y"
+query.start = "2022-01-01"
+query.system_index = ""
+
+# drop_vars=["system_id", "system_name"], drop_dims=["channel"]
+query.settings.concat_reduce = { drop_dims=["channel"] }
+
+input.subset.version = "v1.0.5"
+input.subset.system_name = ["LoRAIN", "Zero W"]
+input.subset.global_location = "de.freiburg"
+input.subset.extension = "zarr.zip"
+
+input.path = ["by-source/smurobs/by-location/Germany/Freiburg/"]  # "by-[location,serialnr]/"
+cache.path = "by-source/smurobs/by-location/Germany/Freiburg/{station_id}/{system_group}/{system_id}/"
+output.path = "by-source/smurobs/by-location/Germany/Freiburg/{station_id}/{system_group}/{system_id}/"
+
+
+# -------- Start of block
+[[datasets_conjoin.input.file]]
+type = "AWS"
+path = "{station_id}/AWS/{system_id}/"
+file = "urbisphere_*_version({version}).zarr.zip"
+
+# -------- Start of block
+[[datasets_conjoin.gattrs]]
+history=[
+    "[{version_date}] @status-meteo(status310v1): `datasets_conjoin.ipynb` {version_id} by Matthias Zeeman",
+    "[{version_date}] Elimination of non-essential attributes, coordinates and dimensions",
+    "[{version_date}] Alignment of units and names with standard vocabulary and conventions",
+]
+production_level="L1"
