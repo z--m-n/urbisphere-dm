@@ -113,18 +113,16 @@ The plugin acts as a wrapper for the built-in export features of xarray. Most JS
 
 The hierarchical structure of the xarray dataset is converted into a flat key-value name space, while attempting to maintain reference to `attrs`, `coords`, `data_vars`. In principle, this name space can be converted back into the original dataset's hierarchy. By default, the output contains a `FeatureCollection` with aggregated statistics (mean, minimum, maximum) for different intervals (one hour, one day) for all variables in the dataset or datasets.
 
-<p align="center">
-  <img src="assets/Screenshot_api-geojson.png" height="350" title="Example GeoJSON">
-</p>
+<figure><img src="assets/Screenshot_api-geojson.png"><figcaption>Figure: API geojson</figcaption></figure>
+
 
 ### MapBox
 
 API query to the Mapbox plugin generates a GeoJSON query and embeds the results in HTML, allowing data to be viewed as a map in a web browser. The colour styling is hard-coded, with look-up tables of predefined colour scales for the data overlay.
 
-<p align="center">
-  <img src="assets/Screenshot_api-map.png" height="350" title="Example Map">
-  <img src="assets/Screenshot_api-map-menu.png" height="350" alt="Example Map Menu">
-</p>
+
+<figure><img width="70%" src="assets/Screenshot_api-map.png" title="Example Map"><img src="assets/Screenshot_api-map-menu.png" width="30%" alt="Example Map Menu"><figcaption>Figure: API output</figcaption></figure>
+
 
 ## Selection
 
@@ -135,9 +133,8 @@ In our example above, API calls involve options for selection (and slicing) of d
 - Plugin input options: `mapbox/-/isel/1D/-1/`; to access all variables, chunks of one day periods, counting backwards from the last chunk. These are passed to GeoJSON plugin.
 - Plugin output options: `location=BR&variable=ta&period=24H&method=maximum`; the output map selection; here the maximum air temperature in Bristol during the past 24 hours. The options are formatted as URL query string.
 
-<p align="center">
-  <img src="assets/Screenshot_api-docs-selection.png" height="350" title="Example Docs">
-</p>
+<figure><img src="assets/Screenshot_api-docs-selection.png"><figcaption>Figure: API docs</figcaption></figure>
+
 
 ## Caching
 
