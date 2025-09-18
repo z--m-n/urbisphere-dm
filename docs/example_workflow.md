@@ -50,5 +50,6 @@ Typically, a `tmp` and `logs` folder are added during runtime use.
 
 ## Examples
 
-1. [Collection and Production of AWS data](../urbisphere-dm/processing/systems/AWS/docs/README.md) 
-1. [Data API](../urbisphere-dm/interfaces/datasets/api/docs/README.md) 
+1. [Collection of AWS data (RAW, L0)](/urbisphere-dm/processing/systems/AWS/docs/README.md) 
+1. [Production of AWS data (L1)](/urbisphere-dm/processing/datasets/conjoin/docs/README.md) 
+1. [Publication of AWS data (API)](/urbisphere-dm/interfaces/datasets/api/docs/README.md) 
