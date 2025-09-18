@@ -15,10 +15,10 @@ Implement classes, modules, type hinting, docstrings, tests, more.
 
 ## Documentation
 
-1. [Production](example_production.md)
-1. [Workflow Examples](example_workflow.md)
-1. [Workflow Runtime](example_runtime.md)
-1. [Workflow Automation](example_automation.md)
+1. [Production](/docs/example_production.md)
+1. [Workflow Examples](/docs/example_workflow.md)
+1. [Workflow Runtime](/docs/example_runtime.md)
+1. [Workflow Automation](/docs/example_automation.md)
 
 
 ## References
