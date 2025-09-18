@@ -10,6 +10,9 @@ Some workflow tasks are scheduled for periodic execution in the production pipel
 ## Rationale
 A number of production pipelines require sequential execution of workflows, independently of the outcome of the previous tasks. For example, processing steps for the collection, concatenation, quality control and diagnostics are typically needed every few minutes for near-real-time access based on latest actual data, but are also needed daily to build and update yearly archive files with increments of missing data.
 
+<figure><img src="https://gi.copernicus.org/articles/13/393/2024/gi-13-393-2024-f15.png"><figcaption>Figure: A schedule is needed for near-time access (<a href="https://gi.copernicus.org/articles/13/393/2024/">Zeeman et al., 2024</a>)</figcaption></figure>
+
+
 ## Timer units
 
 Timer units are (hard-)linked to a timer unit template. The timer unit template schedules, using `crontab` notation:
