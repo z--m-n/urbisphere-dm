@@ -121,8 +121,7 @@ The hierarchical structure of the xarray dataset is converted into a flat key-va
 API query to the Mapbox plugin generates a GeoJSON query and embeds the results in HTML, allowing data to be viewed as a map in a web browser. The colour styling is hard-coded, with look-up tables of predefined colour scales for the data overlay.
 
 
-<figure><img width="70%" src="assets/Screenshot_api-map.png" title="Example Map"><img src="assets/Screenshot_api-map-menu.png" width="30%" alt="Example Map Menu"><figcaption>Figure: API output</figcaption></figure>
-
+<figure><img width="69%" src="assets/Screenshot_api-map.png" title="Example Map"><img src="assets/Screenshot_api-map-menu.png" width="29%" alt="Example Map Menu"><figcaption>Figure: API output</figcaption></figure>
 
 ## Selection
 
