@@ -1,10 +1,9 @@
 # Workflows
 
-Workflows provide resources, or perform tasks, in the data management chain.
-
 <figure><img src="https://gi.copernicus.org/articles/13/393/2024/gi-13-393-2024-f09.png"><figcaption>Figure: Example sequence of workflows (<a href="https://gi.copernicus.org/articles/13/393/2024/">Zeeman et al., 2024</a>)</figcaption></figure>
 
-Workflows are organised by function, for example: 
+___
+Workflows provide resources, or perform tasks, in the data management chain. Workflows are organised by function, for example: 
 
 ```bash
 .
