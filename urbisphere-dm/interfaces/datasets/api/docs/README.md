@@ -113,7 +113,7 @@ The plugin acts as a wrapper for the built-in export features of xarray. Most JS
 
 The hierarchical structure of the xarray dataset is converted into a flat key-value name space, while attempting to maintain reference to `attrs`, `coords`, `data_vars`. In principle, this name space can be converted back into the original dataset's hierarchy. By default, the output contains a `FeatureCollection` with aggregated statistics (mean, minimum, maximum) for different intervals (one hour, one day) for all variables in the dataset or datasets.
 
-<figure><img style="maxwidth: 500px" src="assets/Screenshot_api-geojson.png"><figcaption>Figure: API geojson</figcaption></figure>
+<figure><img style="max-width: 500px" src="assets/Screenshot_api-geojson.png"><figcaption>Figure: API geojson</figcaption></figure>
 
 
 ### MapBox
@@ -132,7 +132,7 @@ In our example above, API calls involve options for selection (and slicing) of d
 - Plugin input options: `mapbox/-/isel/1D/-1/`; to access all variables, chunks of one day periods, counting backwards from the last chunk. These are passed to GeoJSON plugin.
 - Plugin output options: `location=BR&variable=ta&period=24H&method=maximum`; the output map selection; here the maximum air temperature in Bristol during the past 24 hours. The options are formatted as URL query string.
 
-<figure><img style="maxwidth: 500px" src="assets/Screenshot_api-docs-selection.png"><figcaption>Figure: API docs</figcaption></figure>
+<figure><img style="max-width: 500px" src="assets/Screenshot_api-docs-selection.png"><figcaption>Figure: API docs</figcaption></figure>
 
 
 ## Caching
