@@ -31,7 +31,7 @@ elif [[ "$dk" == "M" ]]; then
 elif [[ "$dk" == "D" ]]; then
     du=hour
     dt=$(( dv*24 ))
-    df="%Y-%m-%d"  
+    df="%Y-%m-%d"
 else
     du=hour
     dt=$(( dv*1 ))
@@ -45,12 +45,12 @@ fi
 
 # eval start
 if [[ "$input_start" == "none" ]]; then
-    input_start=$(date -u -d  "0 $du" +"$df")   
+    input_start=$(date -u -d  "0 $du" +"$df")
 fi
 
 # eval end
-if [[ "$input_end" == "none" || "$input_end" == "latest" ]]; then   
-    input_end=$(date -u -d  "$dt $du" +"$df")    
+if [[ "$input_end" == "none" || "$input_end" == "latest" ]]; then
+    input_end=$(date -u -d  "$dt $du" +"$df")
 fi
 
 # eval loc
@@ -63,7 +63,7 @@ query_ids=("${dc##*:}")
 dc=${dc%%:*}
 fi
 
-# eval loc: general  
+# eval loc: general
 if [[ "$dc" == "FR" ]]; then
 # nb_version='v1.0.3'
 cty_code='FR'
@@ -77,18 +77,18 @@ toml_add=( ""
  "input.subset.version = 'v1.0.5'"
  "input.subset.system_name = ['LoRAIN', 'Zero W']"
  "input.subset.system_group = 'AWS'"
- "input.subset.global_location = '${cty_glob}'"  
- "input.subset.campaign_location = '${cty_code}'" 
+ "input.subset.global_location = '${cty_glob}'"
+ "input.subset.campaign_location = '${cty_code}'"
  ""
  "input.path_base = ['/srv/meteo/sandbox/zeeman/{system_group}/{version}/data/L1/','/srv/meteo/scratch/zeeman/{system_group}/{version}/data/L1/']"
  "input.path = ['${cty_path}/{system_group}/']"
  ""
  "cache.path_base = './tmp/'"
  "cache.path = './cache/'"
- "" 
+ ""
  "output.path_base = '127.0.0.1:55555'"
  "output.path = '/public/freiburg/api/v1/'"
- "" 
+ ""
  "output.api.mapbox.customAttribution = 'Data: <a href=\"http://www.uni-freiburg.de/en/\">University of Freiburg</a>, Funding: European Research Council (ERC) Grant: 855005'"
 
 )
@@ -105,8 +105,8 @@ toml_add=( ""
  "input.subset.version = 'v1.0.5'"
  "input.subset.system_name = ['LoRAIN']"
  "input.subset.system_group = 'AWS'"
- "input.subset.global_location = '${cty_glob}'"  
- "input.subset.campaign_location = '${cty_code}'" 
+ "input.subset.global_location = '${cty_glob}'"
+ "input.subset.campaign_location = '${cty_code}'"
  ""
  "input.path_base = ['/srv/meteo/sandbox/zeeman/{system_group}/{version}/data/L1/','/srv/meteo/scratch/zeeman/{system_group}/{version}/data/L1/']"
  "input.path = ['${cty_path}/{system_group}/']"
@@ -124,16 +124,16 @@ else
     exit 1
 fi
 
-# reduce workload and output for real-time applications 
+# reduce workload and output for real-time applications
 if [[ "$dk" == "H" ]]; then
     toml_add+=( "" "# Warning: replacing default settings" )
-    toml_add+=( "query.tasks = ['cache']" )    
+    toml_add+=( "query.tasks = ['cache']" )
     toml_add+=( "" )
 fi
 
 if [[ "$dk" == "D" ]]; then
     toml_add+=( "" "# Warning: replacing default settings" )
-    toml_add+=( "query.tasks = ['serve']" )    
+    toml_add+=( "query.tasks = ['serve']" )
     toml_add+=( "" )
 fi
 
@@ -157,107 +157,105 @@ nextdate=$(date -u -d "$d0" +"%s")
 while [ "$nextdate" -lt "$enddate" ]; do
 
     # papermill [OPTIONS] NOTEBOOK_PATH [OUTPUT_PATH]
-    for id in "${query_ids[@]}" ; do 
-        echo  $(date +"[%Y-%m-%d %H:%M:%S]") "${d0} to ${d1}" "// Period:[$dt $du][$dv$dk]  Latest:[${latest}] ID:[${id}] Loc:[${dc}][${cty_code}]" 
-        nb_run="_tmp_${nb_org}_${cty_code}_${id}_${dv}${dk}"        
+    for id in "${query_ids[@]}" ; do
+        echo  $(date +"[%Y-%m-%d %H:%M:%S]") "${d0} to ${d1}" "// Period:[$dt $du][$dv$dk]  Latest:[${latest}] ID:[${id}] Loc:[${dc}][${cty_code}]"
+        nb_run="_tmp_${nb_org}_${cty_code}_${id}_${dv}${dk}"
         cat "conf/${nb_org}.toml" > ${nb_run}.toml
-        echo -e "\n## ----------------------------------" >> ${nb_run}.toml 
-        echo -e "## ${nb_version} -- Added During Automation --" >> ${nb_run}.toml 
-        echo -e "[[${nb_org}]]" >> ${nb_run}.toml 
-        echo -e "version.id = '${nb_version}'\n" >> ${nb_run}.toml     
+        echo -e "\n## ----------------------------------" >> ${nb_run}.toml
+        echo -e "## ${nb_version} -- Added During Automation --" >> ${nb_run}.toml
+        echo -e "[[${nb_org}]]" >> ${nb_run}.toml
+        echo -e "version.id = '${nb_version}'\n" >> ${nb_run}.toml
         echo -e "logging.file = '${nb_run}.log'" >> ${nb_run}.toml
-        echo -e "logging.path = 'logs/{version_id}/'" >> ${nb_run}.toml         
-        
+        echo -e "logging.path = 'logs/{version_id}/'" >> ${nb_run}.toml
+
         if (( ${#toml_add[@]} != 0 )); then
             for add in "${toml_add[@]}" ; do
                 echo -e "${add}" >> ${nb_run}.toml
             done
             echo "  Warning: added lines from an array to the TOML config file."
-        fi        
-        
+        fi
+
         if [[ "$latest" == "true" ]]; then
             for add in "${latest_add[@]}" ; do
                 echo -e "${add}" >> ${nb_run}.toml
-            done        
+            done
             echo "  Warning: added lines from an array to the TOML config file (LATEST)."
-        fi       
+        fi
 
         # catalogues
-        echo -e "\n## ----------------------------------" >> ${nb_run}.toml 
+        echo -e "\n## ----------------------------------" >> ${nb_run}.toml
         echo -e "## ${cty_code} -- Added During Automation --" >> ${nb_run}.toml
         cat "conf/catalogues/${nb_org}_${cty_code}.toml" >> ${nb_run}.toml
-        
+
         #sleep 1 ;
 
 
-        
+
         # copy and update notebook
         if [[ "$nb_version" == "v1.0.3" ]]; then
         # python 3.12
-        # convert from python notebook        
+        # convert from python notebook
         { ( nice -n 10 \
-          timeout 1m \ 
+          timeout 1m \
           conda run -n status312v1 \
-          papermill --prepare-only "notebooks/v1.0.3-dev/${nb_org}.ipynb" "${nb_run}.ipynb" -p ioconfig_file "${nb_run}.toml" 
+          papermill --prepare-only "notebooks/${nb_org}.ipynb" "${nb_run}.ipynb" -p ioconfig_file "${nb_run}.toml"
         ) } 2>/dev/null
 
         wait
-          
+
         # convert to python script
         { ( conda run -n status312v1 \
-            jupyter nbconvert --to script "${nb_run}.ipynb" 
+            jupyter nbconvert --to script "${nb_run}.ipynb"
         ) } 2>/dev/null
 
         wait
-          
+
         # execute python script
-        if [[ "$dk" == "H" || "$dk" == "D" ]]; then          
+        if [[ "$dk" == "H" || "$dk" == "D" ]]; then
         { ( nice -n 10 \
           conda run -n status312v1 \
           python "${nb_run}.py"
-          ) } 2>/dev/null             
-        fi   
+          ) } 2>/dev/null
+        fi
 
 
-
-        
         elif [[ "$nb_version" == "v1.0.2" ]]; then
         # python 3.10
         # convert from python notebook
         { ( nice -n 10 \
-          timeout 1m \ 
+          timeout 1m \
           conda run -n status310v1 \
-          papermill --prepare-only "notebooks/v1.0.2-stable/${nb_org}.ipynb" "${nb_run}.ipynb" -p ioconfig_file "${nb_run}.toml" 
-        ) } 2>/dev/null   
-
-        wait
-          
-        # convert to python script
-        { ( conda run -n status310v1 \
-            jupyter nbconvert --to script "${nb_run}.ipynb" 
+          papermill --prepare-only "notebooks/v1.0.2-stable/${nb_org}.ipynb" "${nb_run}.ipynb" -p ioconfig_file "${nb_run}.toml"
         ) } 2>/dev/null
 
         wait
-          
+
+        # convert to python script
+        { ( conda run -n status310v1 \
+            jupyter nbconvert --to script "${nb_run}.ipynb"
+        ) } 2>/dev/null
+
+        wait
+
         # execute python script
-        if [[ "$dk" == "H" || "$dk" == "D" ]]; then          
+        if [[ "$dk" == "H" || "$dk" == "D" ]]; then
         { ( nice -n 10 \
           conda run -n status310v1 \
           python "${nb_run}.py"
-          ) } 2>/dev/null             
-        fi   
-        
+          ) } 2>/dev/null
         fi
 
-          
-        wait  
-        
+        fi
+
+
+        wait
+
     done
 
     # Collect all background processes.
     wait
-    
+
     d0=$(date -u -d "$d0 $dt $du" +"%Y-%m-%d %H:%M:%S")
-    d1=$(date -u -d "$d1 $dt $du" +"%Y-%m-%d %H:%M:%S")  
-    nextdate=$(date -u -d "$d0" +"%s")   
+    d1=$(date -u -d "$d1 $dt $du" +"%Y-%m-%d %H:%M:%S")
+    nextdate=$(date -u -d "$d0" +"%s")
 done
