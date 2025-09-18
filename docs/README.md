@@ -7,7 +7,7 @@ ____
 
 
 ## Status
-**Gen 1 (current)**: compiled from selected private workflows. 
+**Gen 1 (current)**: compiled from selected development workflows. 
 These workflows were built around Notebooks, TOML configuration files and Bash scripts. The combination can be used for production/automation, although not recommended. As development notebooks, the workflows are self-contained with limited cross-dependencies.  
 
 **Gen 2 (next)**: code cleanup.
