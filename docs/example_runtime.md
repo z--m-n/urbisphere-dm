@@ -14,7 +14,7 @@ This 'development=production' framework was implemented due to constraints and o
 
 - **Configuration**: the workflow configuration (TOML file) and source code (Jupyter notebook file) are copied and updated based on shell script arguments.
 
-- **Execution**: while iterating through the tasks, the updated sources are executed by the shell script as notebooks or Python scripts (`papermill`), within the appropriate environment (`conda run`). Execution controls are added where needed (e.g., `timeout`, resource priority, concurrent execution, handling errors, stdout).
+- **Execution**: while iterating through the tasks, the updated sources are executed by the shell script as notebooks or Python scripts (`papermill`), within the appropriate environment (`conda run`, see ![conda environments](/urbisphere-dm/common/scripts/conda/conf)). Execution controls are added where needed (e.g., `timeout`, resource priority, concurrent execution, handling errors, stdout).
 
 ## Runtime command
 
@@ -37,7 +37,6 @@ The TOML configuration files use variables and arrays:
 - input locations
 - cache locations
 - output locations
-
 
 Runtime copies of configuration files residing outside the scope of the code version control needed a workaround to be aware of relevant changes and versioning (e.g., runtime options). A configuration includes version-specific blocks for the workflow, using TOML array definitions.
 

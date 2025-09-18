@@ -19,9 +19,9 @@ Sensor networks in environmental research require a data system to manage a mode
 
 Field-deployed systems collect sensor data and transfer these as files to temporary central storage volumes. From there, file objects are archived on locations with human and machine interpretable identifiers for the logical, physical and organisation network those data belong to. The information in the file name (creation time, serial number) and within the file objects (time records, configuration details) link to databases for inventory and deployment details. The sources are converted and combined into a standardised structure (L0, L1), which subsequent workflows can access.
 
-- documentation in `docs/`[example_workflow](../docs/example_workflow.md)
-- documentation in `docs/`[example_runtime](../docs/example_runtime.md)
-- documentation in `docs/`[example_scheduling](../docs/example_scheduling.md)
+- documentation in [example_workflow](/docs/example_workflow.md)
+- documentation in [example_runtime](/docs/example_runtime.md)
+- documentation in [example_scheduling](/docs/example_scheduling.md)
 - workflows in `urbisphere-dm/processing/systems/`
 - workflows in `urbisphere-dm/processing/datasets/conjoin/`
 
@@ -31,14 +31,14 @@ Visualisations are part of the monitoring of data infrastructure, data transmiss
 
 Annotations are made based on maintenance reports. The annotation process is supported by automated quality control workflows, which comprise computations and visualisation. 
 
-- documentation in `docs/`[example_workflow](../docs/example_workflow.md)
+- documentation in [example_workflow](/docs/example_workflow.md)
 - workflows in `urbisphere-dm/interfaces/services/dashboards/`
 
 ### Sharing & Publication
 
 Provenance and reuse of the data require access to structured metadata about the creation history and license terms agreed by the organisational network contributing to the work. Those details must be available to the (next) user, in human and machine interpretable form. 
 
-- documentation in `docs/`[example_api](../docs/example_api.md)
+- documentation in [example_api](/docs/example_api.md)
 - workflows in `urbisphere-dm/interfaces/datasets/api/`
 - workflows in `urbisphere-dm/interfaces/datasets/zenodo/`
 
