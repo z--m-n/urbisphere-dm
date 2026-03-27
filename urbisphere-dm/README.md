@@ -1,6 +1,6 @@
 # (urbisphere-dm) README.md
 
-Please consult the documentation in `/docs` for general guidance. Each tool or tool set may have additional documentation in sub-folders `**/docs`.
+For general guidance, please consult the documentation in the '/docs' folder. You might find extra info for each tool or tool set in subfolders called `**/docs`.
 
 ### Files
 ```bash
