@@ -11,6 +11,20 @@ The built-in methods for merging multiple datasets (module `xarray`) are increas
 
 `datasets_conjoin`
 
+### Files
+```bash
+.
+└── urbisphere-dm
+    └── processing
+        └── datasets
+            └── conjoin
+                ├── conf
+                │   └── datasets_conjoin.toml
+                └── notebooks
+                    ├── datasets_conjoin.ipynb
+                    └── datasets_conjoin.sh
+```
+
 ### Task `conform`
 
 Translation of vocabulary (module `cfunits`) based on additional metadata queries. Cached output is created for each input file. 

@@ -52,4 +52,15 @@ Typically, a `tmp` and `logs` folder are added during runtime use.
 
 1. [Collection of AWS data (RAW, L0)](/urbisphere-dm/processing/systems/AWS/docs/README.md) 
 1. [Production of AWS data (L1)](/urbisphere-dm/processing/datasets/conjoin/docs/README.md) 
-1. [Publication of AWS data (API)](/urbisphere-dm/interfaces/datasets/api/docs/README.md) 
+1. [Publication of AWS data (API)](/urbisphere-dm/interfaces/datasets/api/docs/README.md)
+
+
+### Notebooks
+
+| Location | Notebook |  |
+|----------|----------|----------|
+| ├── interfaces ── filedb    | [filedb_locate](./urbisphere-dm/interfaces/filedb/notebooks/filedb_locate.ipynb)   |  |
+| ├── interfaces ── metadb    | [metadb_query_mwe](./urbisphere-dm/interfaces/metadb/notebooks/metadb_query_mwe.ipynb)   |  |
+| ├── interfaces ── services ── dashboards | [dashboard_paris](./urbisphere-dm/interfaces/services/dashboards/notebooks/dashboard_paris.ipynb)   |  |
+| ├── interfaces ── datasets ── api  | [datasets_api](./urbisphere-dm/interfaces/datasets/api/notebooks/datasets_api.ipynb)   |  |
+| ├── common ── colormap      | [colormaps](./urbisphere-dm/common/colormap/notebooks/colormaps.ipynb)   |  |

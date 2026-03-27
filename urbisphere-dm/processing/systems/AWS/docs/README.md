@@ -4,6 +4,20 @@
 ## Fieldclimate API (JSON)
 `fieldclimate_metadata`
 
+### Files
+```bash
+.
+└── urbisphere-dm
+    └── processing
+        └── systems
+            └── AWS
+                ├── conf
+                │   └── fieldclimate_metadata.toml
+                └── notebooks
+                    ├── fieldclimate_metadata.ipynb
+                    └── fieldclimate_metadata.sh
+```
+
 ### Task `query`
 Data are collected from the Fieldclimate API and the results are stored as JSON files. 
 
@@ -19,6 +33,20 @@ This is a simplified variant of the `datasets_conjoin` workflow.
 ## Campbell Scientific Datalogger (TOA5)
 
 `cslogger_metadata`
+
+### Files
+```bash
+.
+└── urbisphere-dm
+    └── processing
+        └── systems
+            └── AWS
+                ├── conf
+                │   └── cslogger_metadata.toml
+                └── notebooks
+                    ├── cslogger_metadata.ipynb
+                    └── cslogger_metadata.sh
+```
 
 ### Task `main`
 Data are read from TOA5 files, the headers are evaluated, the time variable is evaluated and output is generated as dataset (using `xarray`). 

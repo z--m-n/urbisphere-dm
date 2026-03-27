@@ -15,6 +15,21 @@ A data API that builds on `xpublish`, with features added to manage input and ou
 
 Users in a variety of roles need to monitor and access data alongside as much of the associated metadata as possible. The customised API provides direct access to the production sources, ensuring data provenance while avoiding duplication or redirection of the production workflow. Data managers and end-users access the same database.
 
+## Files
+
+```bash
+.
+└── urbisphere-dm
+    └── interfaces
+        └── datasets
+            └── api
+                ├── conf
+                │   └── datasets_api.toml
+                └── notebooks
+                    ├── datasets_api.ipynb
+                    └── datasets_api.sh
+```
+
 ## Configuration
 
 By default, all locations found in the default source are exposed as datasets, and named using location shortcode identifiers (`station_id`; {2-char city id}{4-char station id}). Location identifiers are used as a primary index in production files, either as paths in Zarr containers or as groups in NetCDF files. Currently, there is no merged dataset exposed as joining multiple datasets on the fly is too demanding in case coordinates differ between the datasets. User access is managed using combinations of the 'api_name' and 'api_token', more to provide custom context for different users than for security purposes. Filters are implemented using lists for inclusion, for example, to expose only preselected variables (e.g. 'ta', 'hur', etc.).
